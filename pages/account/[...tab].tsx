@@ -17,43 +17,46 @@ const AccountPages = () => {
   }
 
   return (
-    <Tab.Group
-      selectedIndex={selectedIndex}
-      onChange={(index) => {
-        const tab = tabs.at(index);
-        router.replace(`/account/${tab}`, undefined, { shallow: true });
-      }}
-    >
-      <Tab.List className={"tabs tabs-boxed"}>
-        {({ selectedIndex }) => {
-          return (
-            <>
-              {tabs.map((tab, index) => (
-                <Tab
-                  key={tab}
-                  as={Link}
-                  href={`/account/${tab}`}
-                  className={classNames({
-                    "tab m-2 capitalize": true,
-                    "tab-active": selectedIndex === index,
-                  })}
-                  shallow
-                >
-                  {tab}
-                </Tab>
-              ))}
-            </>
-          );
+    <div className="p-4">
+      <Tab.Group
+        selectedIndex={selectedIndex}
+        onChange={(index) => {
+          const tab = tabs.at(index);
+          router.replace(`/account/${tab}`, undefined, { shallow: true });
         }}
-      </Tab.List>
-      <Tab.Panels
-        className={"p-2 bg-base-200 my-4 rounded-md text-base-content"}
       >
-        <Tab.Panel>Pofile Content</Tab.Panel>
-        <Tab.Panel>Subscription Content</Tab.Panel>
-        <Tab.Panel>Settings Content</Tab.Panel>
-      </Tab.Panels>
-    </Tab.Group>
+        <Tab.List className={"tabs tabs-boxed"}>
+          {({ selectedIndex }) => {
+            return (
+              <>
+                {tabs.map((tab, index) => (
+                  <Tab
+                    key={tab}
+                    as={Link}
+                    href={`/account/${tab}`}
+                    className={classNames({
+                      "tab m-2 capitalize": true,
+                      "tab-active": selectedIndex === index,
+                    })}
+                    shallow
+                  >
+                    {tab}
+                  </Tab>
+                ))}
+              </>
+            );
+          }}
+        </Tab.List>
+        <Tab.Panels
+          className={"p-2 bg-base-200 my-4 rounded-md text-base-content"}
+        >
+          <Tab.Panel>Pofile Content</Tab.Panel>
+          <Tab.Panel>Subscription Content</Tab.Panel>
+          <Tab.Panel>Settings Content</Tab.Panel>
+        </Tab.Panels>
+      </Tab.Group>
+      <pre>Current Location : {window.location.href}</pre>
+    </div>
   );
 };
 
