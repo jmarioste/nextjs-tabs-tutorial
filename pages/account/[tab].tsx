@@ -2,20 +2,14 @@ import { Tab } from "@headlessui/react";
 import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
-
-const AccountPages = () => {
+const AccountPage = () => {
   const tabs = ["profile", "subscription", "settings"];
   const router = useRouter();
-  const _selectedTab = Array.isArray(router.query.tab)
-    ? router.query.tab.at(0) ?? "profile"
-    : "profile";
+  const _selectedTab = (router.query.tab as string) ?? "profile";
   const selectedIndex = tabs.indexOf(_selectedTab) ?? 0;
-
   if (!router.isReady) {
     return null;
   }
-
   return (
     <div className="p-4">
       <Tab.Group
@@ -26,26 +20,21 @@ const AccountPages = () => {
         }}
       >
         <Tab.List className={"tabs tabs-boxed"}>
-          {({ selectedIndex }) => {
-            return (
-              <>
-                {tabs.map((tab, index) => (
-                  <Tab
-                    key={tab}
-                    as={Link}
-                    href={`/account/${tab}`}
-                    className={classNames({
-                      "tab m-2 capitalize": true,
-                      "tab-active": selectedIndex === index,
-                    })}
-                    shallow
-                  >
-                    {tab}
-                  </Tab>
-                ))}
-              </>
-            );
-          }}
+          {tabs.map((tab, index) => (
+            <Tab
+              key={tab}
+              as={Link}
+              href={`/account/${tab}`}
+              // use classNames to toggle the tab-active state easily
+              className={classNames({
+                "tab m-2 capitalize": true,
+                "tab-active": selectedIndex === index,
+              })}
+              shallow
+            >
+              {tab}
+            </Tab>
+          ))}
         </Tab.List>
         <Tab.Panels
           className={"p-2 bg-base-200 my-4 rounded-md text-base-content"}
@@ -59,5 +48,4 @@ const AccountPages = () => {
     </div>
   );
 };
-
-export default AccountPages;
+export default AccountPage;
